@@ -1,0 +1,83 @@
+<main>
+   <div class="container mt-5">
+        <div class="filter d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-3">Filtrar equipos por competición:</h2>
+            <select id="competitionFilter" class="form-select w-auto">
+                <option value="all">Todas las competiciones</option>
+                <option value="footballOption">Fútbol</option>
+                <option value="basketOption">Baloncesto</option>
+                <option value="volleyOption">Voleibol</option>
+            </select>
+        </div>
+        <div class="results-list">     
+            <!-- Football -->
+            <div class="competition-result footballOption">
+            <h4>Fútbol - Jornada 1</h4>
+            <table class="table table-bordered">
+                <thead class="table-primary">
+                <tr>
+                    <th>Local</th>
+                    <th>Visitante</th>
+                    <th>Resultado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Barcelona</td><td>Valencia</td><td>2 - 1</td>
+                </tr>
+                <tr>
+                    <td>Athletic Club</td><td>Sevilla</td><td>0 - 0</td>
+                </tr>
+                <tr>
+                    <td>Valencia</td><td>Barcelona</td><td>4 - 0</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <!-- Basket -->
+            <div class="competition-result basketOption">
+            <h4>Baloncesto - Jornada 1</h4>
+            <table class="table table-bordered">
+                <thead class="table-primary text-center">
+                <tr>
+                    <th>Local</th>
+                    <th>Visitante</th>
+                    <th>Resultado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Toledo</td><td>Charlotte Hornets</td><td>89 - 92</td>
+                </tr>
+                <tr>
+                    <td>Baskonia</td><td>Valencia Basket</td><td>78 - 80</td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+
+            <!-- Volleyball -->
+            <div class="competition-result volleyOption">
+                <h4>Voleibol - Jornada 1</h4>
+                <table class="table table-bordered">
+                    <thead class="table-primary text-center">
+                    <tr>
+                        <th>Local</th>
+                        <th>Visitante</th>
+                        <th>Resultado</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Los Titanes</td><td>Baskonia</td><td>3 - 1</td>
+                    </tr>
+                    <tr>
+                        <td>Baskonia</td><td>Los Titanes</td><td>2 - 3</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</main>

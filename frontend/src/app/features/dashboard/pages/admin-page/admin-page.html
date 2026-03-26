@@ -1,0 +1,167 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <h2>Crear Partido</h2>
+      <form (ngSubmit)="createPartido()">
+        <div class="mb-3">
+          <label for="deporte">Deporte</label>
+          <select class="form-select" [(ngModel)]="newPartido.deporte" name="deporte">
+            <option *ngFor="let deporte of deportes" [value]="deporte.value">
+              {{ deporte.label }}
+            </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="equipo1">Nombre equipo LOCAL:</label>
+          <input
+            [(ngModel)]="newPartido.equipo1"
+            name="equipo1"
+            class="form-control"
+            id="equipo1"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="equipo2">Nombre equipo VISITANTE:</label>
+          <input
+            [(ngModel)]="newPartido.equipo2"
+            name="equipo2"
+            class="form-control"
+            id="equipo2"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="fecha">Fecha:</label>
+          <input
+            [(ngModel)]="newPartido.fecha"
+            name="fecha"
+            class="form-control"
+            id="fecha"
+            type="date"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="arbitro">Árbitro:</label>
+          <input
+            [(ngModel)]="newPartido.arbitro"
+            name="arbitro"
+            class="form-control"
+            id="arbitro"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="ubicacion">Ubicación:</label>
+          <input
+            [(ngModel)]="newPartido.ubicacion"
+            name="ubicacion"
+            class="form-control"
+            id="ubicacion"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Crear partido</button>
+      </form>
+    </div>
+  </div>
+  <div class="row mt-5">
+  <hr>
+    <div class="col-md-12">
+      <h3 class="justify-content-center">Partidos existentes:</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Deporte</th>
+            <th>Equipo Local</th>
+            <th>Equipo Visitante</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let partido of partidos">
+            <td>
+         <!---     <select
+                *ngIf="editPartidoId === partido._id"
+                class="form-select"
+                [(ngModel)]="partido.deporte"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option *ngFor="let deporte of deportes" [value]="deporte.value">
+                  {{ deporte.label }}
+                </option>
+              </select>
+              <span *ngIf="editPartidoId !== partido._id">
+                {{ getDeporteLabel(partido.deporte) }}
+              </span> -->
+               <input 
+                *ngIf="editPartido === partido._id" 
+                [(ngModel)]="partido.deporte" 
+                class="form-control" />
+              <span *ngIf="editPartido !== partido._id">{{ partido.deporte }}</span>
+            </td>
+            <td>
+              <input
+                *ngIf="editPartidoId === partido._id"
+                [(ngModel)]="partido.equipo1"
+                class="form-control"
+              />
+              <span *ngIf="editPartidoId !== partido._id">{{ partido.equipo1 }}</span>
+            </td>
+            <td>
+              <input
+                *ngIf="editPartidoId === partido._id"
+                [(ngModel)]="partido.equipo2"
+                class="form-control"
+              />
+              <span *ngIf="editPartidoId !== partido._id">{{ partido.equipo2 }}</span>
+            </td>
+            <td>
+              <input
+                *ngIf="editPartidoId === partido._id"
+                [(ngModel)]="partido.fecha"
+                class="form-control"
+                type="date"
+              />
+              <span *ngIf="editPartidoId !== partido._id">{{ partido.fecha }}</span>
+            </td>
+            <td>
+              <!-- Mostrar el botón de "Guardar" solo si estamos editando -->
+              <button
+                *ngIf="editPartidoId === partido._id"
+                class="btn btn-success me-2"
+                (click)="updatePartido(partido)"
+              >
+                Guardar
+              </button>
+              <!-- Mostrar el botón de "Editar" si no estamos editando -->
+              <button
+                *ngIf="editPartidoId === partido._id"
+                class="btn btn-warning me-2"
+                (click)="cancelEditPartido(partido)"
+              >
+                Cancelar
+              </button>
+              <button
+                *ngIf="editPartidoId !== partido._id"
+                class="btn btn-warning me-2"
+                (click)="editPartido(partido)"
+              >
+                Editar
+              </button>
+
+              <button
+                *ngIf="editPartidoId !== partido._id"
+                class="btn btn-danger me-2"
+                (click)="deletePartido(partido._id)"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

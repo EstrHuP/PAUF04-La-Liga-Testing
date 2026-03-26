@@ -1,0 +1,52 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="text-center mb-4">Registro</h3>
+          <form class="text-start" #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <div class="mb-3">
+              <label class="form-label">Email: *</label>
+              <input type="email" 
+                    class="form-control" 
+                    [(ngModel)]="newUser.email"
+                    name="email"
+                    required
+                    #emailCtrl="ngModel"
+                    [class.is-invalid]="emailCtrl.invalid && (emailCtrl.touched || registerForm.submitted)"
+                >
+                <div class="invalid-feedback">Campo obligatorio</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Contraseña: *</label>
+              <input type="password" 
+                    class="form-control" 
+                    [(ngModel)]="newUser.password"
+                    name="password" 
+                    required
+                    #passwordCtrl="ngModel"
+                    [class.is-invalid]="passwordCtrl.invalid && (passwordCtrl.touched || registerForm.submitted)"
+                >
+                <div class="invalid-feedback">Campo obligatorio</div>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Nombre:</label>
+              <input type="text" class="form-control" [(ngModel)]="newUser.name" name="name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Elige el tipo (normal por defecto):</label>
+                <select class="form-select" [(ngModel)]="newUser.rol" name="rol">
+                    <option *ngFor="let rol of roles" [value]="rol.value">
+                        {{rol.label}}
+                    </option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success w-100" [disabled]="registerForm.invalid">Registrarse</button>
+          </form>
+          <hr>
+            <p class="text-center mb-0"> ¿Ya tienes cuenta? <a type="button" routerLink="/login" class="btn-outline-light">Iniciar sesión</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

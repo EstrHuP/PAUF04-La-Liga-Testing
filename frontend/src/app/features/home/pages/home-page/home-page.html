@@ -1,0 +1,110 @@
+<main>
+  <!-- Carousel -->
+  <div class="carousel-container">
+    <div id="newsCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="0"class="active"></button>
+        <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#newsCarousel" data-bs-slide-to="2"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active" role="button" data-bs-toggle="modal" data-bs-target="#modalNew1">
+          <img src="assets/img/voleibol-carousel.png" class="d-block w-100" alt="Voleibol"/>
+        </div>
+
+        <div class="carousel-item" role="button" data-bs-toggle="modal" data-bs-target="#modalNew2">
+          <img src="assets/img/baloncesto-carousel.png" class="d-block w-100" alt="Baloncesto"/>
+        </div>
+
+        <div class="carousel-item" role="button" data-bs-toggle="modal" data-bs-target="#modalNew3">
+          <img src="assets/img/futbol-carousel.png" class="d-block w-100" alt="Fútbol"/>
+        </div>
+      </div>
+
+      <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+
+      <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Hero -->
+  <section id="hero" class="py-5">
+    <div class="container bg-light shadow rounded py-5">
+      <div class="row align-items-center">
+        <div class="col-md-6">
+          <img src="assets/img/logo-2.0.png" class="img-fluid" alt="Logo"/>
+        </div>
+        <div class="col-md-6">
+          <h1 class="fw-bold">Apostamos por el deporte</h1>
+          <p class="lead">Apostamos por el desarrollo físico y social de los estudiantes.</p>
+          <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalInscripcion">Inscribirse</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Competitions -->
+  <section id="competitions" class="py-5">
+      <div class="container">
+          <div class="text-center mb-5">
+            <h2 class="fw-bold">Competiciones actuales</h2>
+            <p class="lead">Consulta el estado de las competiciones existentes.</p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Competition 1 -->
+            <div class="col-md-4">
+              <div class="card h-100 shadow-sm border-0">
+                <img src="assets/img/inscribete-ahora.png" class="card-img-top" style="max-height: 180px;" alt="Liga de Fútbol">
+                <div class="card-body">
+                  <h5 class="card-title text-primary fw-bold">Liga de Fútbol Escolar</h5>
+                  <p class="card-text">12 equipos compiten por el trofeo anual. La temporada se extiende de octubre a marzo.</p>
+                  <p class="text-muted small">Próxima jornada: 15 de noviembre.</p>
+                </div>
+                <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                  <a routerLink="/results" class="btn btn-primary btn-sm">Ver resultados</a>
+                  <a routerLink="/contact" class="btn btn-outline-primary btn-sm">Contacto</a>
+                </div>
+              </div>
+            </div>
+
+          <!-- Competition 2 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <img src="assets/img/baloncesto-new.png" class="card-img-top" style="max-height: 180px;" alt="Liga de Baloncesto">
+              <div class="card-body">
+                <h5 class="card-title text-primary fw-bold">Liga de Baloncesto</h5>
+                <p class="card-text">Participa en la competición más reñida. Equipos femeninos compitiendo por ser el mejor centro.</p>
+                <p class="text-muted small">Echa un vistazo a los equipos.</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                <a routerLink="/teams" class="btn btn-primary btn-sm">Ver equipos</a>
+                <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalNew2">Saber más</button>
+              </div>
+            </div>
+          </div>
+
+        <!-- Competition 3 -->
+          <div class="col-md-4">
+            <div class="card h-100 shadow-sm border-0">
+              <img src="assets/img/volleyball-team.svg" class="card-img-top" style="max-height: 180px;" alt="Liga de Baloncesto">
+              <div class="card-body">
+                <h5 class="card-title text-primary fw-bold">Torneo de voleibol</h5>
+                <p class="card-text">El torneo más emocionante del año. Equipos mixtos compitiendo por la copa de invierno.</p>
+                <p class="text-muted small">¡Ya están los resultados!</p>
+              </div>
+              <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+                <a routerLink="/results" class="btn btn-primary btn-sm">Ver resultados</a>
+                <a routerLink="/contact" class="btn btn-outline-primary btn-sm">Contacto</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+  </section>
+</main>

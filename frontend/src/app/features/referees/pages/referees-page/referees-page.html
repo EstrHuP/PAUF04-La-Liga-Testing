@@ -1,0 +1,97 @@
+<main>
+  <div class="container mt-5">
+    <h2 class="fw-bold mb-4 text-center">Búsqueda de árbitros</h2>
+
+    <!-- Filtros -->
+    <div class="row mb-4">
+      <div class="col-md-6">
+        <input
+          type="text"
+          id="refSearch"
+          class="form-control"
+          placeholder="Buscar árbitro por nombre..."
+        />
+      </div>
+      <div class="col-md-6">
+        <select id="competitionFilter" class="form-select">
+          <option value="all">Todas las competiciones</option>
+          <option value="footballOption">Fútbol</option>
+          <option value="basketOption">Baloncesto</option>
+          <option value="volleyOption">Voleibol</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Lista de jugadores -->
+    <div id="refList" class="row g-4">
+      <!-- Fútbol -->
+      <div
+        class="col-md-4 ref-card footballOption"
+        data-bs-toggle="modal"
+        data-bs-target="#refModal"
+        data-name="Juanjo Soto"
+        data-sport="Fútbol"
+        data-stats="12"
+        data-exp="15 años"
+        data-ref="juanjo"
+      >
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title fw-bold">Juanjo Soto</h2>
+            <img
+              src="assets/img/juanjo.png"
+              class="card-img-top"
+              alt="Árbitro de Fútbol, Juanjo Soto"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Basket -->
+      <div
+        class="col-md-4 ref-card basketOption"
+        data-bs-toggle="modal"
+        data-bs-target="#refModal"
+        data-name="Ricardo Nuñez"
+        data-sport="Baloncesto"
+        data-stats="4"
+        data-exp="2 años"
+        data-ref="ricardo"
+      >
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title fw-bold">Ricardo Nuñez</h2>
+            <img
+              src="assets/img/ricardo.png"
+              class="card-img-top"
+              alt="Árbitro de baloncesto, Ricardo Nuñez"
+            />
+          </div>
+        </div>
+      </div>
+
+      <!-- Voleibol -->
+      <div
+        class="col-md-4 ref-card volleyOption"
+        data-bs-toggle="modal"
+        data-bs-target="#refModal"
+        data-name="Pilar Calvo"
+        data-sport="Voleibol"
+        data-stats="6"
+        data-exp="10 años"
+        data-ref="publicarán"
+      >
+        <div class="card bg-light">
+          <div class="card-body">
+            <h2 class="card-title fw-bold">Pilar Calvo</h2>
+            <img
+              src="assets/img/pilar.png"
+              class="card-img-top"
+              alt="Árbitro de voleibol, Pilar Calvo"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

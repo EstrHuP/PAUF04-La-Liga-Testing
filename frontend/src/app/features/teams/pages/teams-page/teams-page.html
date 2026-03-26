@@ -1,0 +1,113 @@
+<main>
+    <div class="container mt-5">
+        <div class="filter d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold mb-3">Filtrar equipos por competición:</h2>
+            <select id="competitionFilter" class="form-select w-auto">
+                <option value="all">Todas las competiciones</option>
+                <option value="footballOption">Fútbol</option>
+                <option value="basketOption">Baloncesto</option>
+                <option value="volleyOption">Voleibol</option>
+            </select>
+        </div>
+
+        <div id="teamsList" class="row g-4">
+            <!-- Football -->
+            <div class="col-md-3 team-card" data-competition="footballOption" data-team="barcelona">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Barcelona</h2>
+                        <img src="assets/img/barcelona.png" class="card-img-top" alt="Equipo Barcelona">
+                        <p class="card-text team-category">Fútbol</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 team-card" data-competition="footballOption" data-team="athletic">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Atlethic Club</h2>
+                        <img src="assets/img/athletic.png" class="card-img-top" alt="Equipo athletic Club">
+                        <p class="card-text team-category">Fútbol</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 team-card" data-competition="footballOption" data-team="valencia">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Valencia</h2>
+                        <img src="assets/img/valencia.png" class="card-img-top" alt="Equipo Valencia">
+                        <p class="card-text team-category">Fútbol</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 team-card" data-competition="footballOption" data-team="sevilla">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Sevilla</h2>
+                        <img src="assets/img/sevilla.png" class="card-img-top" alt="Equipo Sevilla">
+                        <p class="card-text team-category">Fútbol</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Basket -->
+            <div class="col-md-3 team-card" data-competition="basketOption" data-team="toledo">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Toledo</h2>
+                        <img src="assets/img/toledo.png" class="card-img-top" alt="Equipo Toledo Baloncesto">
+                        <p class="card-text team-category">Baloncesto</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 team-card" data-competition="basketOption" data-team="toledo">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Charlotte Hornest</h2>
+                        <img src="assets/img/charlotte-hornest.webp" class="card-img-top" alt="Equipo charlotte hornest">
+                        <p class="card-text team-category">Baloncesto</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+            <!-- Volleyball -->
+            <div class="col-md-3 team-card" data-competition="volleyOption" data-team="baskonia">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Baskonia</h2>
+                        <img src="assets/img/vitoria.png" class="card-img-top" alt="Equipo Baskonia Vitoria">
+                        <p class="card-text team-category">Voleibol</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 team-card" data-competition="volleyOption" data-team="titanes">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h2 class="card-title fw-bold">Los titanes</h2>
+                        <img src="assets/img/volleyball-team.svg" class="card-img-top" alt="Equipo los titanes">
+                        <p class="card-text team-category">Voleibol</p>
+                        <button class="btn btn-primary btn-sm more-info-btn">Ver detalles del equipo</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal team detail -->
+    <div class="modal fade" id="teamModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header text-white">
+                    <h5 class="modal-title" id="teamModalLabel">Detalles del equipo</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body" id="teamModalBody"></div>
+            </div>
+        </div>
+    </div>
+</main>

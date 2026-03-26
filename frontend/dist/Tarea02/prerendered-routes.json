@@ -1,0 +1,18 @@
+{
+  "routes": {
+    "/": {},
+    "/clasifications": {},
+    "/contact": {},
+    "/home": {},
+    "/index_admin": {},
+    "/index_arbitro": {},
+    "/index_capitan": {},
+    "/index_usuario": {},
+    "/login": {},
+    "/players": {},
+    "/referees": {},
+    "/register": {},
+    "/results": {},
+    "/teams": {}
+  }
+}
