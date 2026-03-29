@@ -9,12 +9,12 @@ class JugadorController extends Controller
 {
     // GET - Listar
     public function index() {
-        return Jugador::all();
+        return response()->json(Jugador::all());
     }
 
     // GET - Mostrar
     public function show(Jugador $jugador) {
-        return $jugador -> load('club');
+        return $jugador -> load('club')->findOrFail($jugador);
     }
 
     // POST - Crear
