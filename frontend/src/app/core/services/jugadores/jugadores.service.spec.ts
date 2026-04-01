@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { JugadoresService } from './jugadores.service';
+import mockJugadores from '../../../../testing/fixtures/jugadores.json';
 
 describe('JugadoresService', () => {
   let service: JugadoresService;
   let httpMock: HttpTestingController;
+  const apiURL = '/api/jugadores';
 
   beforeEach(() => {
+    TestBed.resetTestingModule();
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       providers: [JugadoresService]
@@ -21,18 +24,13 @@ describe('JugadoresService', () => {
   });
 
   it('debe obtener el listado de jugadores', () => {
-    const mockJugadores = [
-      { id: 1, nombre: 'Elena Mock', posicion: 'Portera', dorsal: 7, club_id: 2 },
-      { id: 2, nombre: 'Carlos Mock', posicion: 'Defensa', dorsal: 3, club_id: 1 }
-    ];
-    
     service.getJugadores().subscribe(jugadores => {
-      expect(jugadores.length).toBe(2);
+      expect(jugadores.length).toBe(4);
       expect(jugadores[0].nombre).toBe('Elena Mock');
       expect(jugadores[1].nombre).toBe('Carlos Mock');
     });
 
-    const req = httpMock.expectOne('/api/jugadores');
+    const req = httpMock.expectOne(apiURL);
     expect(req.request.method).toBe('GET');
     req.flush(mockJugadores);
   });
@@ -43,7 +41,7 @@ describe('JugadoresService', () => {
       error: (err) => { expect(err.status).toBe(500); }
     });
 
-    const req = httpMock.expectOne('/api/jugadores');
+    const req = httpMock.expectOne(apiURL);
     expect(req.request.method).toBe('GET');
     req.flush({ message: 'Error interno' }, { status: 500, statusText: 'Server Error' });
   });
