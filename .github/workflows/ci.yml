@@ -1,0 +1,48 @@
+name: Build and testing
+
+# Se activa en push y PR a la rama principal
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+
+  # ── JOB 1: Build and test - back/front-end ───
+  build_and_tests:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install frontend Dependencies
+        run: |
+          cd frontend
+          npm install
+      - name: Run Angular Tests
+        run: |
+          cd frontend
+          npm run test -- --watch=false
+      - name: setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+      - name: Install backend Dependencies
+        run: |
+          cd backend
+          composer install
+      - name: Run laravel tests
+        run: |
+          cd backend
+          php artisan key:generate
+          php artisan migrate --force
+          php artisan test
+      - name: Run E2E tests
+        run: |
+          cd frontend
+          npx cypress run
