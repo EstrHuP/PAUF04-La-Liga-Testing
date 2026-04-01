@@ -43,7 +43,7 @@ class JugadoresApiTest extends TestCase {
     }
 
     public function test_invalid(): void {
-        $payload = ['nombre' => '', 'posicion' => '', 'dorsal' => 0, 'club_id' => ''];
+        $payload = ['nombre' => '', 'posicion' => '', 'dorsal' => 0, 'club_id' => null];
         $this->withHeaders(['X-User-Role' => 'admin'])->postJson('/api/jugadores', $payload)
             ->assertStatus(422);
     }
