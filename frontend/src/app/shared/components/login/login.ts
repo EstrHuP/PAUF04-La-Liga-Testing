@@ -28,7 +28,7 @@ export class Login {
 
           switch(rol) {
             case 'admin':
-              this.router.navigate(['/index_admin']);
+              this.router.navigate(['/index_admin_jugadores']);
               break;
             case 'capitan':
               this.router.navigate(['/index_capitan']);

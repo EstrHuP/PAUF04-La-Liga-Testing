@@ -1,0 +1,130 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-5">
+      <h2>Crear Jugador</h2>
+      <form (ngSubmit)="createJugador()">
+        <div class="mb-3">
+          <label for="deporte">Deporte</label>
+          <select class="form-select" [(ngModel)]="newJugador.deporte" name="deporte">
+            <option *ngFor="let deporte of deportes" [value]="deporte.value">
+              {{ deporte.label }}
+            </option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="nombreJugador">Nombre del jugador:</label>
+          <input
+            [(ngModel)]="newJugador.nombre"
+            name="nombreJugador"
+            class="form-control"
+            id="nombreJugador"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label for="nombreEquipo">Nombre del equipo:</label>
+          <input
+            [(ngModel)]="newJugador.nombreEquipo"
+            name="nombreEquipo"
+            class="form-control"
+            id="nombreEquipo"
+            required
+          />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Crear jugador</button>
+      </form>
+    </div>
+  </div>
+  <div class="row mt-5">
+  <hr>
+    <div class="col-md-12">
+      <h3 class="justify-content-center">Jugadores registrados:</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Deporte</th>
+            <th>Nombre Jugador</th>
+            <th>Nombre Equipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let jugador of jugadores">
+            <td>
+         <!---     <select
+                *ngIf="editPartidoId === partido._id"
+                class="form-select"
+                [(ngModel)]="partido.deporte"
+                [ngModelOptions]="{ standalone: true }"
+              >
+                <option *ngFor="let deporte of deportes" [value]="deporte.value">
+                  {{ deporte.label }}
+                </option>
+              </select>
+              <span *ngIf="editPartidoId !== partido._id">
+                {{ getDeporteLabel(partido.deporte) }}
+              </span> -->
+               <input 
+                *ngIf="editJugador === jugador._id" 
+                [(ngModel)]="jugador.deporte" 
+                class="form-control" />
+              <span *ngIf="editJugador !== jugador._id">{{ jugador.deporte }}</span>
+            </td>
+            <td>
+              <input
+                *ngIf="editJugadorId === jugador._id"
+                [(ngModel)]="jugador.nombreJugador"
+                class="form-control"
+                id="editNombreJugador"
+              />
+              <span *ngIf="editJugadorId !== jugador._id">{{ jugador.nombre }}</span>
+            </td>
+            <td>
+              <input
+                *ngIf="editJugadorId === jugador._id"
+                [(ngModel)]="jugador.nombreEquipo"
+                class="form-control"
+              />
+              <span *ngIf="editJugadorId !== jugador._id">{{ jugador.nombreEquipo }}</span>
+            </td>
+            <td>
+              <!-- Mostrar el botón de "Guardar" solo si estamos editando -->
+              <button
+                *ngIf="editJugadorId === jugador._id"
+                class="btn btn-success me-2"
+                (click)="updateJugador(jugador)"
+                data-cy="save-btn"
+              >
+                Guardar
+              </button>
+              <!-- Mostrar el botón de "Editar" si no estamos editando -->
+              <button
+                *ngIf="editJugadorId === jugador._id"
+                class="btn btn-warning me-2"
+                (click)="cancelEditJugador(jugador)"
+                data-cy="cancel-btn"
+              >
+                Cancelar
+              </button>
+              <button
+                *ngIf="editJugadorId !== jugador._id"
+                class="btn btn-warning me-2"
+                (click)="editJugador(jugador)"
+                data-cy="edit-btn"
+              >
+                Editar
+              </button>
+              <button
+                *ngIf="editJugadorId !== jugador._id"
+                class="btn btn-danger me-2"
+                (click)="deleteJugador(jugador._id)"
+                data-cy="delete-btn"
+              >
+                Eliminar
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

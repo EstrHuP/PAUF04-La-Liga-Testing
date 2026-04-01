@@ -12,6 +12,7 @@ import { ArbitroPage } from './features/dashboard/pages/arbitro-page/arbitro-pag
 import { CapitanPage } from './features/dashboard/pages/capitan-page/capitan-page';
 import { UsuarioPage } from './features/dashboard/pages/usuario-page/usuario-page';
 import { AdminPage } from './features/dashboard/pages/admin-page/admin-page';
+import { AdminPageJugadores } from './features/dashboard/pages/admin-page-jugadores/admin-page-jugadores';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -27,6 +28,7 @@ export const routes: Routes = [
 
     // INDEX
     { path:'index_admin', component: AdminPage },
+    { path:'index_admin_jugadores', component: AdminPageJugadores},
     { path:'index_arbitro', component: ArbitroPage },
     { path:'index_capitan', component: CapitanPage },
     { path:'index_usuario', component: UsuarioPage },

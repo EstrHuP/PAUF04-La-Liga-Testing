@@ -4,6 +4,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import User from "./src/app/core/models/User.js";
 import Partidos from "./src/app/core/models/Partidos.js";
+import Jugadores from "./src/app/core/models/Jugadores.js";
 
 dotenv.config();
 const app = express();
@@ -88,6 +89,49 @@ app.put("/api/partidos/:id", async (req, res) => {
     res.status(200).json(updatedPartido);
   } catch (err) {
     res.status(400).json({ message: "Error actualizando partido" });
+  }
+});
+
+/////// POST - CREATE Jugadores ///////
+app.post("/api/jugadores", async (req, res) => {
+  try {
+    const newJugador = await Jugadores.create(req.body);
+    console.log("Jugador saved:", newJugador);
+    res.status(200).json(newJugador);
+  } catch (err) {
+    res.status(400).json({ message:"Error creating jugador"});
+  }
+}) 
+
+/////// GET - Lista Jugadores ///////
+app.get("/api/jugadores", async (req, res) => {
+  try {
+    const jugadores = await Jugadores.find();
+    res.status(200).json(jugadores);
+  } catch (err) {
+    res.status(400).json({ message: "Error fetching jugadores" });
+  }
+});
+
+/////// DELETE - Eliminar Partido ///////
+app.delete("/api/jugadores/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    await Jugadores.findByIdAndDelete(id);
+    res.status(200).json({ message: "Jugador eliminado correctamente" });
+  } catch (err) {
+    res.status(400).json({ message: "Error eliminando jugador" });
+  }
+});
+
+/////// PUT - Actualizar Partido ///////
+app.put("/api/jugadores/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const updatedJugador = await Jugadores.findByIdAndUpdate(id, req.body, { new: true });
+    res.status(200).json(updatedJugador);
+  } catch (err) {
+    res.status(400).json({ message: "Error actualizando jugador" });
   }
 });
 
