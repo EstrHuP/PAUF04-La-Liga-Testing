@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "nombre": "Elena Mock",
+    "posicion": "Portera",
+    "dorsal": 7,
+    "club_id": 2
+  },
+  {
+    "id": 2,
+    "nombre": "Carlos Mock",
+    "posicion": "Defensa",
+    "dorsal": 3,
+    "club_id": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Andrea Mock",
+    "posicion": "Delantera",
+    "dorsal": 2,
+    "club_id": 1
+  },
+  {
+    "id": 4,
+    "nombre": "Pepe Mock",
+    "posicion": "Portero",
+    "dorsal": 1,
+    "club_id": 1
+  }
+]
+
