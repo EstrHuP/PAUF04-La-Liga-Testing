@@ -42,3 +42,11 @@ jobs:
           php artisan key:generate
           php artisan migrate --force
           php artisan test
+      - name: Start Angular and backend
+        run: |
+          cd frontend
+          node server.js
+          ng serve
+          sleep 10
+          npx cypress install --force
+          npx cypress run --spec "cypress/e2e/admin.cy.ts"
