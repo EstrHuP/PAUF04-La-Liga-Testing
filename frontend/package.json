@@ -3,11 +3,11 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server",
+    "start": "ng serve",
     "build": "ng build",
-    "watch": "ng build --watch --configuration development",
+    "watch": "ng build --watch=false",
     "test": "ng test",
-    "serve:ssr:Tarea02": "node dist/Tarea02/server/server.mjs"
+    "e2e": "cypress run"
   },
   "prettier": {
     "printWidth": 100,
@@ -47,10 +47,15 @@
     "@angular/cli": "^21.0.3",
     "@angular/compiler-cli": "^21.0.0",
     "@types/express": "^5.0.1",
+    "@types/jest": "^30.0.0",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^20.17.19",
     "cypress": "^15.13.0",
     "jsdom": "^27.1.0",
     "typescript": "~5.9.2",
     "vitest": "^4.0.8"
+  },
+  "engines": {
+    "node": "18.x"
   }
 }
