@@ -1,52 +1,99 @@
 name: Build and testing
 
-# Se activa en push y PR a la rama principal
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
-
-  # ── JOB 1: Build and test - back/front-end ───
   build_and_tests:
     name: Testing
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Install frontend Dependencies
-        run: |
-          cd frontend
-          npm install
-      - name: Run Angular Tests
-        run: |
-          cd frontend
-          npm run test -- --watch=false
-      - name: setup PHP
+          node-version: 18
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Run Angular unit tests
+        working-directory: frontend
+        run: npm test -- --watch=false
+
+      - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.4'
-      - name: Install backend Dependencies
+          php-version: "8.4"
+          tools: composer
+          coverage: none
+          extensions: pdo_sqlite, sqlite3
+
+      - name: Install backend dependencies
+        working-directory: backend
         run: |
-          cd backend
-          composer install
-      - name: Run laravel tests
+          rm -rf vendor
+          composer install --no-interaction --prefer-dist --no-progress --no-scripts
+
+      - name: Run Laravel tests
+        working-directory: backend
+        env:
+          APP_NAME: CI
+          APP_ENV: testing
+          APP_DEBUG: "true"
+          APP_URL: http://localhost
+          LOG_CHANNEL: stderr
+          DB_CONNECTION: sqlite
+          DB_DATABASE: database/database.sqlite
+          CACHE_STORE: array
+          SESSION_DRIVER: array
+          QUEUE_CONNECTION: sync
+          MAIL_MAILER: array
         run: |
-          cd backend
-          php artisan key:generate
-          php artisan migrate --force
-          php artisan test
-      - name: Start Angular and backend
+          set -e
+          mkdir -p database
+          touch database/database.sqlite
+          export APP_KEY="base64:$(php -r 'echo base64_encode(random_bytes(32));')"
+          php artisan package:discover --ansi
+          php artisan migrate --force --no-interaction
+          php artisan test --no-interaction
+
+  deploy:
+    name: Deploy to Render
+    runs-on: ubuntu-latest
+    needs: build_and_tests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Trigger backend deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_BACKEND_SERVICE_ID: ${{ secrets.RENDER_BACKEND_SERVICE_ID }}
         run: |
-          cd frontend
-          node server.js
-          ng serve
-          sleep 10
-          npx cypress install --force
-          npx cypress run --spec "cypress/e2e/admin.cy.ts"
+          set -euo pipefail
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Content-Type: application/json" \
+            "https://api.render.com/v1/services/${RENDER_BACKEND_SERVICE_ID}/deploys" \
+            -d '{}'
+
+      - name: Trigger frontend deploy
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_FRONTEND_SERVICE_ID: ${{ secrets.RENDER_FRONTEND_SERVICE_ID }}
+        run: |
+          set -euo pipefail
+          curl -fsS -X POST \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Content-Type: application/json" \
+            "https://api.render.com/v1/services/${RENDER_FRONTEND_SERVICE_ID}/deploys" \
+            -d '{}'
