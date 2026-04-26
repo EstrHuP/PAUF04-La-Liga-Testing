@@ -1,40 +1,41 @@
-# 1. Usamos una imagen oficial de PHP con Apache
-FROM php:8.4-apache
+# -------------------------------
+# Dockerfile para Laravel en Render
+# -------------------------------
 
-# 2. Instalamos extensiones necesarias para Laravel y SQLite
+FROM php:8.5-fpm
+
+# Render: env vars should configure the app; log to stderr by default.
+ENV LOG_CHANNEL=stderr
+
+# 1️ Instala dependencias del sistema necesarias para Laravel y SQLite
 RUN apt-get update && apt-get install -y \
-libpng-dev \
-libonig-dev \
-libxml2-dev \
-zip \
-unzip \
-git \
-curl \
-sqlite3 \
-libsqlite3-dev
+    git unzip curl libzip-dev libonig-dev libpng-dev libxml2-dev zip sqlite3 libsqlite3-dev build-essential \
+    && docker-php-ext-configure zip \
+    && docker-php-ext-install pdo mbstring zip bcmath pdo_sqlite \
+    && rm -rf /var/lib/apt/lists/*
 
-# 3. Limpiamos cache de paquetes
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# 2️ Copia Composer desde la imagen oficial
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 4. Instalamos extensiones de PHP
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd pdo_sqlite
+# 3️ Directorio de trabajo
+WORKDIR /var/www/html
 
-# 5. Habilitamos el módulo rewrite de Apache (CRÍTICO para las rutas de Laravel)
-RUN a2enmod rewrite
+# 4️ Copia Composer manifests e instala dependencias
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-scripts
 
-# 6. Instalamos Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# 5️ Copia el resto del proyecto al contenedor
+COPY . .
 
-# 7. Copiamos los archivos del proyecto al contenedor
-COPY . /var/www/html
+# 6️ Crear archivo SQLite si no existe y dar permisos
+RUN mkdir -p database storage bootstrap/cache \
+    && touch database/database.sqlite \
+    && chown -R www-data:www-data database storage bootstrap/cache \
+    && mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views \
+    && chmod -R a+rwX database storage bootstrap/cache
 
-# 8. Configuramos permisos para Laravel
-RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+# 7️ Expone el puerto que Laravel usará
+EXPOSE 10000
 
-# 9. Ajustamos el DocumentRoot de Apache a la carpeta /public de Laravel
-ENV APACHE_DOCUMENT_ROOT /var/www/html/public
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
-RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
-
-# 10. Exponemos el puerto
-EXPOSE 80
+# 8️ Comando para iniciar Laravel
+CMD ["sh", "-c", "set -e; if [ -z \"${APP_KEY:-}\" ]; then echo \"Missing APP_KEY (set it in Render Environment)\"; exit 1; fi; mkdir -p storage/framework/cache storage/framework/sessions storage/framework/views bootstrap/cache database; touch database/database.sqlite; chmod -R a+rwX storage bootstrap/cache database; if [ \"${DB_CONNECTION:-}\" = \"sqlite\" ] && [ -z \"${DB_DATABASE:-}\" ]; then export DB_DATABASE=/var/www/html/database/database.sqlite; fi; php artisan migrate --force --no-interaction; php artisan serve --host=0.0.0.0 --port=${PORT:-10000}"]
