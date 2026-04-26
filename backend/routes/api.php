@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClubController;
 use App\Http\Controllers\JugadorController;
 use App\Http\Controllers\LigaController;
+use App\Http\Controllers\AuthController;
+
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
 
 // GLOBAL: - without acess
 Route::get('clubes', [ClubController::class, 'index']);

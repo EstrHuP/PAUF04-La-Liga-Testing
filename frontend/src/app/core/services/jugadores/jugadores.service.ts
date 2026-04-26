@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 export interface Jugador {
   id: number;
@@ -11,7 +12,7 @@ export interface Jugador {
 
 @Injectable({ providedIn: 'root' })
 export class JugadoresService {
-  private apiURL = '/api/jugadores';
+  private apiURL = `${environment.apiUrl}/jugadores`;
 
   constructor(private http: HttpClient) {}
 
